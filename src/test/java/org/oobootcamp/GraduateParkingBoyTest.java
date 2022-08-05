@@ -8,7 +8,6 @@ import org.oobootcamp.Entity.Ticket;
 import org.oobootcamp.Exception.InvalidTicketException;
 import org.oobootcamp.Exception.ParkingLotFullException;
 import org.oobootcamp.ParkingBoy.GraduateParkingBoy;
-import org.oobootcamp.ParkingBoy.ParkingBoy;
 
 import java.util.ArrayList;
 
@@ -26,9 +25,9 @@ public class GraduateParkingBoyTest {
         parkingLotList.add(parkingLotA);
         parkingLotList.add(parkingLotB);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
-        Ticket ticket = graduateParkingBoy.ParkCar(car);
+        Ticket ticket = graduateParkingBoy.Park(car);
 
-        assertThat(parkingLotA.GetCar(ticket)).isEqualTo(car);
+        assertThat(parkingLotA.Pick(ticket)).isEqualTo(car);
     }
 
     //AC2 小弟管理的多个停车场，其中有一部分停车场未停满，停车时按顺序停入第一个未停满的停车场
@@ -36,17 +35,17 @@ public class GraduateParkingBoyTest {
     public void should_park_into_parkingLot_A_and_get_ticket_given_3_car_in_parkingLot_A_and_0_car_in_parkingLot_B_When_park_car() throws Exception {
         ParkingLot parkingLotA = new ParkingLot(4);
         ParkingLot parkingLotB = new ParkingLot(3);
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
         var car = new Car();
         ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLotA);
         parkingLotList.add(parkingLotB);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
-        Ticket ticket = graduateParkingBoy.ParkCar(car);
+        Ticket ticket = graduateParkingBoy.Park(car);
 
-        assertThat(parkingLotA.GetCar(ticket)).isEqualTo(car);
+        assertThat(parkingLotA.Pick(ticket)).isEqualTo(car);
     }
 
     @Test
@@ -54,20 +53,20 @@ public class GraduateParkingBoyTest {
     {
         ParkingLot parkingLotA = new ParkingLot(4);
         ParkingLot parkingLotB = new ParkingLot(3);
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotB.ParkCar(new Car());
-        parkingLotB.ParkCar(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotB.Park(new Car());
+        parkingLotB.Park(new Car());
         var car = new Car();
         ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLotA);
         parkingLotList.add(parkingLotB);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
-        Ticket ticket = graduateParkingBoy.ParkCar(car);
+        Ticket ticket = graduateParkingBoy.Park(car);
 
-        assertThat(parkingLotB.GetCar(ticket)).isEqualTo(car);
+        assertThat(parkingLotB.Pick(ticket)).isEqualTo(car);
     }
 
 
@@ -77,20 +76,20 @@ public class GraduateParkingBoyTest {
     {
         ParkingLot parkingLotA = new ParkingLot(4);
         ParkingLot parkingLotB = new ParkingLot(3);
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotA.ParkCar(new Car());
-        parkingLotB.ParkCar(new Car());
-        parkingLotB.ParkCar(new Car());
-        parkingLotB.ParkCar(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotA.Park(new Car());
+        parkingLotB.Park(new Car());
+        parkingLotB.Park(new Car());
+        parkingLotB.Park(new Car());
         var car = new Car();
         ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLotA);
         parkingLotList.add(parkingLotB);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
 
-        Assertions.assertThrows(ParkingLotFullException.class, () ->graduateParkingBoy.ParkCar(car));
+        Assertions.assertThrows(ParkingLotFullException.class, () ->graduateParkingBoy.Park(car));
     }
 
     //AC4：小弟凭自己管理的停车场中的有效票取到对应的车
@@ -99,12 +98,12 @@ public class GraduateParkingBoyTest {
     {
         ParkingLot parkingLotA = new ParkingLot(1);
         var car = new Car();
-        var ticket = parkingLotA.ParkCar(car);
+        var ticket = parkingLotA.Park(car);
         ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLotA);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
 
-        assertThat(graduateParkingBoy.PickCar(ticket)).isEqualTo(car);
+        assertThat(graduateParkingBoy.Pick(ticket)).isEqualTo(car);
     }
 
     //AC5：小弟凭无效票取车失败，获得提示信息“无效 Ticket”
@@ -113,12 +112,12 @@ public class GraduateParkingBoyTest {
     {
         ParkingLot parkingLotA = new ParkingLot(1);
         var car = new Car();
-        parkingLotA.ParkCar(car);
+        parkingLotA.Park(car);
         var ticket = new Ticket();
         ArrayList<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(parkingLotA);
         GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLotList);
 
-        Assertions.assertThrows(InvalidTicketException.class, () ->graduateParkingBoy.PickCar(ticket));
+        Assertions.assertThrows(InvalidTicketException.class, () ->graduateParkingBoy.Pick(ticket));
     }
 }

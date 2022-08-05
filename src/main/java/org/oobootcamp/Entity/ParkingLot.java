@@ -6,13 +6,13 @@ import org.oobootcamp.Exception.ParkingLotFullException;
 import java.util.HashMap;
 
 public class ParkingLot {
-    private HashMap<Ticket, Car> parkingLotManager = new HashMap<>();
-    private int capacity;
+    private final HashMap<Ticket, Car> parkingLotManager = new HashMap<>();
+    private final int capacity;
     public ParkingLot(int i) {
         capacity = i;
     }
 
-    public Car GetCar(Ticket ticket) throws InvalidTicketException {
+    public Car Pick(Ticket ticket) throws InvalidTicketException {
         var car = parkingLotManager.get(ticket);
         if(car == null)
         {
@@ -21,7 +21,7 @@ public class ParkingLot {
         return car;
     }
 
-    public Ticket ParkCar(Car car) throws ParkingLotFullException {
+    public Ticket Park(Car car) throws ParkingLotFullException {
         if(parkingLotManager.size() >= capacity)
         {
             throw new ParkingLotFullException();
@@ -32,7 +32,7 @@ public class ParkingLot {
     }
 
     public int GetSpacerAmount() {
-        return capacity -parkingLotManager.size();
+        return capacity - parkingLotManager.size();
     }
 
     public boolean IsFull()
