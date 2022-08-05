@@ -31,7 +31,7 @@ public class ParkingLot {
         return ticket;
     }
 
-    public int GetSpacer() {
+    public int GetSpacerAmount() {
         return capacity -parkingLotManager.size();
     }
 
@@ -40,7 +40,7 @@ public class ParkingLot {
         return capacity == parkingLotManager.size();
     }
 
-    public boolean ContainCar(Ticket ticket)
+    public boolean ContainsCar(Ticket ticket)
     {
         return parkingLotManager.containsKey(ticket);
     }

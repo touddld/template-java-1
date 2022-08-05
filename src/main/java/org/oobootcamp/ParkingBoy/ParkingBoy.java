@@ -20,7 +20,7 @@ public abstract class ParkingBoy
     public Car PickCar(Ticket ticket) throws Exception
     {
         for (var parkingLot:parkingLotList) {
-            if(parkingLot.ContainCar(ticket))
+            if(parkingLot.ContainsCar(ticket))
             {
                 return parkingLot.GetCar(ticket);
             }

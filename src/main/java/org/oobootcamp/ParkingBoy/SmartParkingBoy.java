@@ -27,9 +27,9 @@ public class SmartParkingBoy extends ParkingBoy{
         int max = 0;
         ParkingLot mostSpacerParkingLot = null;
         for (var parkingLot:parkingLotList) {
-            if(parkingLot.GetSpacer() > max)
+            if(parkingLot.GetSpacerAmount() > max)
             {
-                max = parkingLot.GetSpacer();
+                max = parkingLot.GetSpacerAmount();
                 mostSpacerParkingLot = parkingLot;
             }
         }
