@@ -1,6 +1,7 @@
 package org.oobootcamp.ParkingBoy;
 
 import org.oobootcamp.Entity.Car;
+import org.oobootcamp.Exception.InvalidTicketException;
 import org.oobootcamp.Exception.ParkingLotFullException;
 import org.oobootcamp.Entity.ParkingLot;
 import org.oobootcamp.Entity.Ticket;
@@ -34,5 +35,16 @@ public class SmartParkingBoy extends ParkingBoy{
             }
         }
         return mostSpacerParkingLot;
+    }
+
+    @Override
+    public Car Pick(Ticket ticket) throws InvalidTicketException {
+        for (var parkingLot:parkingLotList) {
+            if(parkingLot.ContainsCar(ticket))
+            {
+                return parkingLot.Pick(ticket);
+            }
+        }
+        throw new InvalidTicketException();
     }
 }
